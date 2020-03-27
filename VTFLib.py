@@ -188,7 +188,17 @@ class VTFLib:
     def image_create_single(self, width, height, image_data, options):
         image_data = cast(image_data, POINTER(c_byte))
         return self.ImageCreateSingle(width, height, image_data, options)
-
+    
+    ImageCreateMultiple = vtflib_cdll.vlImageCreateMultiple
+    ImageCreateMultiple.argtypes = [
+        c_int32, c_int32, c_int32, c_int32, c_int32, POINTER(c_byte), POINTER(
+            VTFLibStructures.CreateOptions)]
+    ImageCreateMultiple.restype = c_bool
+        
+    def image_create_multiple(self, width, height, frames, faces, slices, image_data, options):
+        image_data = cast(image_data, POINTER(c_byte))
+        return self.ImageCreateMultiple(width, height, frames, faces, slices, image_data, options)
+    
     ImageDestroy = vtflib_cdll.vlImageDestroy
     ImageDestroy.argtypes = []
     ImageDestroy.restype = None
